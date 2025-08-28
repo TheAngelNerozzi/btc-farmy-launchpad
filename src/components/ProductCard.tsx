@@ -4,14 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { ShoppingCart } from "lucide-react";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   image: string;
   description: string;
   popular?: boolean;
+  onAddToCart: (product: { id: string; name: string; price: number; image: string }) => void;
 }
 
-export const ProductCard = ({ name, price, image, description, popular = false }: ProductCardProps) => {
+export const ProductCard = ({ id, name, price, image, description, popular = false, onAddToCart }: ProductCardProps) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -41,7 +43,11 @@ export const ProductCard = ({ name, price, image, description, popular = false }
         <div className="text-2xl font-bold text-primary">{formatPrice(price)}</div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button variant="crypto" className="w-full">
+        <Button 
+          variant="crypto" 
+          className="w-full"
+          onClick={() => onAddToCart({ id, name, price, image })}
+        >
           <ShoppingCart className="w-4 h-4 mr-2" />
           Añadir al Carrito
         </Button>

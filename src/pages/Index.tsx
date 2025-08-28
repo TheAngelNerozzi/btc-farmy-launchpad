@@ -7,6 +7,10 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TokenomicsCard } from "@/components/TokenomicsCard";
 import { ProductCard } from "@/components/ProductCard";
+import { IcoContributionForm } from "@/components/IcoContributionForm";
+import { ShoppingCartComponent, CartItem } from "@/components/ShoppingCart";
+import { EmailSubscription } from "@/components/EmailSubscription";
+import { Toaster } from "@/components/ui/toaster";
 import { 
   Wallet, 
   ShoppingCart, 
@@ -29,14 +33,41 @@ import hoodieImage from "@/assets/hoodie-btcfarmy.jpg";
 import mugImage from "@/assets/mug-btcfarmy.jpg";
 
 const Index = () => {
-  const [cartItems, setCartItems] = useState(0);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Sample data - in production this would come from an API
-  const currentFunding = 45000;
-  const targetFunding = 100000;
+  const addToCart = (product: { id: string; name: string; price: number; image: string }) => {
+    setCartItems(prev => {
+      const existingItem = prev.find(item => item.id === product.id);
+      if (existingItem) {
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  const updateQuantity = (id: string, quantity: number) => {
+    setCartItems(prev =>
+      prev.map(item =>
+        item.id === id ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const removeFromCart = (id: string) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
   
   const products = [
     {
+      id: "tshirt-classic",
       name: "Franela BtcFarmy Clásica",
       price: 25,
       image: tshirtImage,
@@ -44,18 +75,21 @@ const Index = () => {
       popular: true
     },
     {
+      id: "cap-classic",
       name: "Gorra BtcFarmy",
       price: 20,
       image: capImage,
       description: "Gorra ajustable con bordado de alta calidad"
     },
     {
+      id: "hoodie-classic",
       name: "Hoodie BtcFarmy",
       price: 45,
       image: hoodieImage,
       description: "Sudadera con capucha, perfecta para hodlers"
     },
     {
+      id: "mug-classic",
       name: "Taza BtcFarmy",
       price: 15,
       image: mugImage,
@@ -110,14 +144,12 @@ const Index = () => {
               <Wallet className="w-4 h-4 mr-2" />
               Conectar Wallet
             </Button>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="w-5 h-5" />
-              {cartItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                  {cartItems}
-                </span>
-              )}
-            </Button>
+            <ShoppingCartComponent
+              items={cartItems}
+              onUpdateQuantity={updateQuantity}
+              onRemoveItem={removeFromCart}
+              onClearCart={clearCart}
+            />
           </div>
         </div>
       </nav>
@@ -137,8 +169,7 @@ const Index = () => {
             </p>
             
             <div className="mb-8">
-              <CountdownTimer />
-              <p className="text-sm text-muted-foreground mt-4">Tiempo restante para la pre-venta</p>
+              <EmailSubscription />
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -219,10 +250,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <Card className="card-gradient border-primary/20 p-6">
-                  <ProgressBar 
-                    currentAmount={currentFunding}
-                    targetAmount={targetFunding}
-                  />
+                  <ProgressBar />
                 </Card>
               </div>
 
@@ -253,10 +281,7 @@ const Index = () => {
             </div>
 
             <div className="text-center mt-8">
-              <Button variant="crypto" size="xl">
-                <Zap className="w-6 h-6 mr-2" />
-                Comprar BFY Ahora
-              </Button>
+              <IcoContributionForm />
             </div>
           </div>
         </div>
@@ -319,8 +344,8 @@ const Index = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {products.map((product, index) => (
-                <ProductCard key={index} {...product} />
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} onAddToCart={addToCart} />
               ))}
             </div>
           </div>
@@ -459,12 +484,11 @@ const Index = () => {
             </div>
             
             <div>
-              <h3 className="font-semibold mb-4">Comunidad</h3>
-              <div className="space-y-2">
-                <a href="#" className="block text-muted-foreground hover:text-primary crypto-transition">Twitter</a>
-                <a href="#" className="block text-muted-foreground hover:text-primary crypto-transition">Telegram</a>
-                <a href="#" className="block text-muted-foreground hover:text-primary crypto-transition">Discord</a>
-              </div>
+              <h3 className="font-semibold mb-4">Mantente Informado</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Suscríbete para recibir las últimas noticias sobre BtcFarmy
+              </p>
+              <EmailSubscription />
             </div>
           </div>
           
@@ -480,6 +504,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      <Toaster />
     </div>
   );
 };
