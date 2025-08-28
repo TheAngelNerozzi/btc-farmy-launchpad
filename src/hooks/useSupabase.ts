@@ -137,6 +137,9 @@ export const useSubmitOrder = () => {
   }) => {
     setLoading(true);
     try {
+      // Get current user if authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      
       const { error } = await supabase
         .from('orders')
         .insert({
@@ -145,6 +148,7 @@ export const useSubmitOrder = () => {
           shipping_address: orderData.shipping_address,
           items: orderData.items,
           total_amount: orderData.total_amount,
+          user_id: user?.id || null, // Attach user_id if authenticated
           status: 'pending'
         });
 
