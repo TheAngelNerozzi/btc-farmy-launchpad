@@ -1,73 +1,52 @@
-# Welcome to your Lovable project
+# BtcFarmy.lat - Crypto Farm Platform
 
-## Project info
+Una plataforma innovadora de farming de criptomonedas con ICO y merchandise.
 
-**URL**: https://lovable.dev/projects/6e5864b8-8d28-4d99-bc68-bea367bb0503
+## Características
 
-## How can I edit this code?
+- ICO en tiempo real con contribuciones
+- Tienda de merchandise
+- Sistema de tokenomics transparente
+- Roadmap interactivo
+- Newsletter y notificaciones
 
-There are several ways of editing your application.
+## Tecnologías
 
-**Use Lovable**
+- React 18
+- TypeScript
+- Tailwind CSS
+- Supabase
+- Vite
+- shadcn-ui
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6e5864b8-8d28-4d99-bc68-bea367bb0503) and start prompting.
+## Desarrollo
 
-Changes made via Lovable will be committed automatically to this repo.
+### Instalación
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# Clonar el repositorio
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
+# Navegar al directorio del proyecto
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Instalar dependencias
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Iniciar servidor de desarrollo
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build para producción
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run build
+```
 
-**Use GitHub Codespaces**
+## Despliegue
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+El proyecto se puede desplegar en cualquier servicio de hosting estático como Vercel, Netlify, o GitHub Pages.
 
-## What technologies are used for this project?
+## Licencia
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6e5864b8-8d28-4d99-bc68-bea367bb0503) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT
