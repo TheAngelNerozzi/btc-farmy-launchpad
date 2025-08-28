@@ -8,35 +8,57 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* BtcFarmy Color Palette */
+    --background: 240 15% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 12% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 12% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 28 100% 50%;
+    --primary-foreground: 240 15% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 265 35% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 8% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 28 100% 60%;
+    --accent-foreground: 240 15% 8%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 8% 20%;
+    --input: 240 8% 15%;
+    --ring: 28 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    
+    /* Custom BtcFarmy Design Tokens */
+    --crypto-orange: 28 100% 50%;
+    --crypto-orange-glow: 28 100% 60%;
+    --crypto-purple: 265 35% 20%;
+    --crypto-purple-dark: 240 15% 8%;
+    --crypto-purple-light: 265 35% 25%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--crypto-orange)), hsl(var(--crypto-orange-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--crypto-purple-dark)), hsl(var(--crypto-purple)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--crypto-purple-light)));
+    
+    /* Shadows */
+    --shadow-crypto: 0 10px 30px -10px hsl(var(--crypto-orange) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--crypto-orange-glow) / 0.4);
+    --shadow-card: 0 8px 25px -8px hsl(240 15% 8% / 0.5);
+    
+    /* Animations */
+    --transition-crypto: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pulse-duration: 2s;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +122,62 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer utilities {
+  .crypto-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+  
+  .crypto-shadow {
+    box-shadow: var(--shadow-crypto);
+  }
+  
+  .glow-shadow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .crypto-transition {
+    transition: var(--transition-crypto);
+  }
+  
+  .pulse-glow {
+    animation: pulse-glow var(--pulse-duration) ease-in-out infinite alternate;
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 20px hsl(var(--crypto-orange) / 0.4);
+  }
+  100% {
+    box-shadow: 0 0 40px hsl(var(--crypto-orange) / 0.8), 0 0 60px hsl(var(--crypto-orange) / 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
