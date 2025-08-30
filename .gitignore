@@ -1,3 +1,16 @@
+# Archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# También es buena práctica ignorar:
+.env.example
+.env.sample
+.env.template
+
+
 # Logs
 logs
 *.log
